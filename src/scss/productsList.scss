@@ -1,0 +1,48 @@
+.top-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  @include sm {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    div {
+      flex-direction: row;
+    }
+  }
+}
+
+.products-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
+  @include sm {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include lg {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @include xl {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    padding: 8px;
+    background-color: var(--light);
+    &:hover {
+      border-color: var(--secondary);
+    }
+  }
+}
