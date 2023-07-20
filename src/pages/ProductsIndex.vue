@@ -1,14 +1,15 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue'
+import ProductsIndexCard from '@/components/ProductsIndexCard.vue';
 import { generateProducts } from '../seed/products'
 import type { ProductInterface } from '@/types';
+
 const products = ref<ProductInterface[]>([])
 const search = ref('')
-const fiteredProducts = ref<ProductInterface[]>([])
-watchEffect(() => products.value = generateProducts())
-watch(search, (newValue) => fiteredProducts.value = products.value.filter(e => e.name.match(newValue)))
+const filteredProducts = ref<ProductInterface[]>([])
 const reset = () => { search.value = '' }
+watchEffect(() => products.value = generateProducts())
+watch(search, (newValue) => filteredProducts.value = products.value.filter(e => e.name.match(newValue)))
 </script>
 
 <template>
@@ -27,22 +28,10 @@ const reset = () => { search.value = '' }
     </div>
     <div class="products-grid">
       <template v-if="search">
-        <RouterLink v-for="product in fiteredProducts" v-bind:key="product.id"
-          :to="{ name: 'products-show', params: { slug: product.slug } }">
-          <div>
-            <p>{{ product.name }}</p>
-            <p>{{ product.price }}</p>
-          </div>
-        </RouterLink>
+        <ProductsIndexCard :products="filteredProducts" />
       </template>
       <template v-else>
-        <RouterLink v-for="product in products" v-bind:key="product.id"
-          :to="{ name: 'products-show', params: { slug: product.slug } }">
-          <div>
-            <p>{{ product.name }}</p>
-            <p>{{ product.price }}</p>
-          </div>
-        </RouterLink>
+        <ProductsIndexCard :products="products" />
       </template>
     </div>
   </div>
