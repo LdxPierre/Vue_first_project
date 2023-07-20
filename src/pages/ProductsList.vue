@@ -15,11 +15,12 @@ const reset = () => { search.value = '' }
   <div class="container-xl p-1">
     <div class="top-bar">
       <h1>Produits</h1>
-      <div>
-        <button type="button" @click="reset">
-          <span class="material-symbols-outlined ico-btn-2">
+      <div class="button-group">
+        <button type="button" v-show="search" @click="reset" class="btn btn-outline-error">
+          <span class="material-symbols-outlined">
             close
-          </span></button>
+          </span>
+        </button>
         <input type="text" name="search" id="search" class="form-input" placeholder="Rechercher" v-model="search">
         <RouterLink to="/products/new" class="btn btn-secondary">Nouveau</RouterLink>
       </div>

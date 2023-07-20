@@ -3,17 +3,29 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 8px;
-  div {
+  .button-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    input {
+      order: 0;
+    }
+    button {
+      order: 1;
+    }
+    a {
+      order: 2;
+    }
   }
   @include sm {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    div {
+    .button-group {
       flex-direction: row;
+      button {
+        order: 0;
+      }
     }
   }
 }
