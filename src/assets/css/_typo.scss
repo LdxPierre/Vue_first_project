@@ -1,0 +1,92 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+label,
+a {
+  &.fw- {
+    &light {
+      font-weight: 300;
+    }
+    &regular {
+      font-weight: 400;
+    }
+    &medium {
+      font-weight: 500;
+    }
+    &bold {
+      font-weight: 700;
+    }
+  }
+  &.text- {
+    &primary {
+      color: var(--primary);
+    }
+    &secondary {
+      color: var(--secondary);
+    }
+    &tertiary {
+      color: var(--tertiary);
+    }
+    &light {
+      color: var(--light);
+    }
+    &dark {
+      color: var(--dark);
+    }
+    &success {
+      color: var(--success);
+    }
+    &error {
+      color: var(--error);
+    }
+    &warning {
+      color: var(--warning);
+    }
+  }
+}
+
+h6,
+.fs-6 {
+  font-size: 1rem;
+}
+
+h5,
+.fs-5 {
+  font-size: 1.5rem;
+}
+
+h4,
+.fs-4 {
+  font-size: 2rem;
+}
+
+h3,
+.fs-3 {
+  font-size: 2.5rem;
+}
+
+h2,
+.fs-2 {
+  font-size: 3rem;
+}
+
+h1,
+.fs-1 {
+  font-size: 3.5rem;
+}
+
+a {
+  &.router-link-active {
+    color: var(--warning);
+  }
+  &:hover {
+    &:not(.router-link-active) {
+      color: var(--secondary);
+    }
+  }
+}

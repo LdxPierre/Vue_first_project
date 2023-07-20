@@ -1,0 +1,16 @@
+.material-symbols-outlined {
+  &.ico-btn {
+    padding: 12px;
+    &.hover {
+      &:hover {
+        background-color: var(--secondary);
+        color: var(--light);
+        border-color: transparent;
+      }
+    }
+  }
+  &.ico-btn-2 {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}

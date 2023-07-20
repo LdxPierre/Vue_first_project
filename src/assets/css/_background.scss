@@ -1,0 +1,16 @@
+div,
+ul,
+li,
+span,
+nav,
+p,
+header,
+footer,
+main {
+  @each $name, $value in $colors {
+    .bg-#{$name} {
+      background-color: $value;
+      @include text-contrast($value);
+    }
+  }
+}

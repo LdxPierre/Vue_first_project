@@ -1,0 +1,50 @@
+$primary: #0a837f;
+$secondary: #ff3d00;
+$tertiary: #ffbc11;
+$light: #ecf0f1;
+$dark: #002c2b;
+$dark-2: #076461;
+$success: #27ae60;
+$error: #c0392b;
+$warning: #f1c40f;
+
+$colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'tertiary': $tertiary,
+  'light': $light,
+  'dark': $dark,
+  'dark-2': $dark-2,
+  'success': $success,
+  'error': $error,
+  'warning': $warning
+);
+
+:root {
+  // color
+  --primary: #0a837f;
+  --secondary: #ff3d00;
+  --tertiary: #ffbc11;
+  --light: #ecf0f1;
+  --white: white;
+  --dark: #002c2b;
+  --dark-2: #076461;
+  --success: #27ae60;
+  --error: #c0392b;
+  --warning: #f1c40f;
+  // fonts
+  --font-family: 'Inter', sans-serif;
+}
+
+@mixin text-contrast($n) {
+  $color-brightness: round((red($n) * 299) + (green($n) * 587) + calc((blue($n) * 114) / 1000));
+  $light-color: round(
+    (red(#ffffff) * 299) + (green(#ffffff) * 587) + calc((blue(#ffffff) * 114) / 1000)
+  );
+
+  @if abs($color-brightness) < (calc($light-color/2)) {
+    color: var(--light);
+  } @else {
+    color: var(--dark);
+  }
+}
