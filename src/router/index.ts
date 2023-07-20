@@ -5,8 +5,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('@/pages/Home.vue')
+      name: 'home-page',
+      component: () => import('@/pages/HomePage.vue')
     },
     {
       path: '/products',
@@ -14,25 +14,25 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'products-list',
-          component: () => import('@/pages/ProductsList.vue')
+          name: 'products-index',
+          component: () => import('@/pages/ProductsIndex.vue')
         },
         {
-          path: 'new',
-          name: 'product-new',
-          component: () => import('@/pages/ProductNew.vue')
+          path: 'create',
+          name: 'products-create',
+          component: () => import('@/pages/ProductsNew.vue')
         },
         {
           path: ':slug',
-          name: 'product-show',
-          component: () => import('@/pages/ProductShow.vue')
+          name: 'products-show',
+          component: () => import('@/pages/ProductsShow.vue')
         }
       ]
     },
     {
       path: '/brands',
-      name: 'brands',
-      component: () => import('@/pages/Brands.vue')
+      name: 'brands-index',
+      component: () => import('@/pages/BrandsIndex.vue')
     }
   ]
 })

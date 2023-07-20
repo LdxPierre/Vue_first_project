@@ -22,13 +22,13 @@ const reset = () => { search.value = '' }
           </span>
         </button>
         <input type="text" name="search" id="search" class="form-input" placeholder="Rechercher" v-model="search">
-        <RouterLink to="/products/new" class="btn btn-secondary">Nouveau</RouterLink>
+        <RouterLink :to="{ name: 'products-create' }" class="btn btn-secondary">Nouveau</RouterLink>
       </div>
     </div>
     <div class="products-grid">
       <template v-if="search">
         <RouterLink v-for="product in fiteredProducts" v-bind:key="product.id"
-          :to="{ name: 'product-show', params: { slug: product.slug } }">
+          :to="{ name: 'products-show', params: { slug: product.slug } }">
           <div>
             <p>{{ product.name }}</p>
             <p>{{ product.price }}</p>
@@ -37,7 +37,7 @@ const reset = () => { search.value = '' }
       </template>
       <template v-else>
         <RouterLink v-for="product in products" v-bind:key="product.id"
-          :to="{ name: 'product-show', params: { slug: product.slug } }">
+          :to="{ name: 'products-show', params: { slug: product.slug } }">
           <div>
             <p>{{ product.name }}</p>
             <p>{{ product.price }}</p>
@@ -49,6 +49,5 @@ const reset = () => { search.value = '' }
 </template>
 
 <style scoped lang="scss">
-@import '../assets/css/media-queries';
-@import '../scss/productsList.scss';
+@import '../assets/css/components/productsList.scss';
 </style>

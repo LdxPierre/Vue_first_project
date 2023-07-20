@@ -35,10 +35,10 @@ const handleClickMenuToggler = () => {
                 <span class="material-symbols-outlined">menu</span>
                 Menu
             </button>
-            <router-link to="/" class="brand" active-class="">Projet Vue</router-link>
+            <router-link :to="{ name: 'home-page' }" class="brand" active-class="">Projet Vue</router-link>
             <div class="menu" ref="menuRef" :class="{ 'show active': state.menuShow }">
                 <div class="menu-header">
-                    <router-link to="/" class="brand" active-class="" @click="closeMenu">
+                    <router-link :to="{ name: 'home-page' }" class="brand" active-class="" @click="closeMenu">
                         Projet Vue
                     </router-link>
                     <button type="button" class="toggler" @click="closeMenu">
@@ -49,10 +49,10 @@ const handleClickMenuToggler = () => {
                 </div>
                 <ul class="link-list">
                     <li>
-                        <router-link to="/products" @click="closeMenu"> Produits </router-link>
+                        <router-link :to="{ name: 'products-index' }" @click="closeMenu"> Produits </router-link>
                     </li>
                     <li>
-                        <router-link to="/brands" @click="closeMenu">Marques</router-link>
+                        <router-link :to="{ name: 'brands-index' }" @click="closeMenu">Marques</router-link>
                     </li>
                 </ul>
             </div>
@@ -67,5 +67,5 @@ const handleClickMenuToggler = () => {
 </template>
 
 <style scoped>
-@import '../../scss/navbar.scss';
+@import '../assets/css/components/header.scss';
 </style>
