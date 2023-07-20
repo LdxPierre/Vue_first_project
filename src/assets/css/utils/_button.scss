@@ -1,8 +1,11 @@
 .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px;
   background-color: transparent;
   color: var(--primary);
-  border: 1px solid var(--primary);
+  border: 1px solid transparent;
   border-radius: 5px;
   font-size: 1rem;
   text-align: center;
@@ -11,7 +14,6 @@
     cursor: pointer;
     background-color: lighten($color: $primary, $amount: 5);
     color: var(--light);
-    border-color: transparent;
   }
   &:active {
     background-color: darken($color: $primary, $amount: 10);
@@ -33,6 +35,7 @@
         }
       }
     }
+
     &outline- {
       @each $name, $value in $colors {
         &#{$name} {
