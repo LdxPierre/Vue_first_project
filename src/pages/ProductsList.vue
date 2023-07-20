@@ -16,7 +16,7 @@ const reset = () => { search.value = '' }
     <div class="top-bar">
       <h1>Produits</h1>
       <div class="button-group">
-        <button type="button" v-show="search" @click="reset" class="btn btn-outline-error rounded-circle border-0">
+        <button type="button" v-show="search" @click="reset" class="btn btn-outline-error">
           <span class="material-symbols-outlined">
             close
           </span>
