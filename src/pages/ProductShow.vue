@@ -7,8 +7,8 @@ const product = computed(() => generateProducts(1)[0])
 <template>
   <div class="container-xl p-1">
     <div class="d-flex gap-2 align-items-center mb-2">
-      <RouterLink to="/products" active-class="">
-        <span class="material-symbols-outlined hover border rounded-circle">
+      <RouterLink to="/products" active-class="" class="btn btn-outline-secondary rounded-circle">
+        <span class="material-symbols-outlined">
           arrow_back
         </span>
       </RouterLink>
