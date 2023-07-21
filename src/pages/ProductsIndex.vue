@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, watchEffect } from 'vue'
-import ProductsIndexCard from '@/components/ProductsIndexCard.vue';
+import ProductsIndexGrid from '@/components/ProductsIndexGrid.vue';
 import { generateProducts } from '../seed/products'
 import type { ProductInterface } from '@/types';
 
@@ -26,14 +26,7 @@ watch(search, (newValue) => filteredProducts.value = products.value.filter(e => 
         <RouterLink :to="{ name: 'products-create' }" class="btn btn-secondary">Nouveau</RouterLink>
       </div>
     </div>
-    <div class="products-grid">
-      <template v-if="search">
-        <ProductsIndexCard :products="filteredProducts" />
-      </template>
-      <template v-else>
-        <ProductsIndexCard :products="products" />
-      </template>
-    </div>
+    <ProductsIndexGrid :products="products" :search="search" :filtered-products="filteredProducts" />
   </div>
 </template>
 

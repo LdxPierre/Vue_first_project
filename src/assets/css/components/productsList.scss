@@ -1,4 +1,7 @@
 @import '../media-queries';
+.container-xl {
+  min-height: 100%;
+}
 
 .top-bar {
   display: flex;
@@ -24,7 +27,7 @@
     }
   }
 
-  @include sm {
+  @include md {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -36,27 +39,5 @@
         order: 0;
       }
     }
-  }
-}
-
-.products-grid {
-  display: grid;
-  gap: 8px;
-  grid-template-columns: 1fr 1fr;
-
-  @include sm {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include md {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include lg {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @include xl {
-    grid-template-columns: repeat(5, 1fr);
   }
 }
