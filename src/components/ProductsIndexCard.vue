@@ -2,21 +2,20 @@
 import type { ProductInterface } from '@/types';
 
 interface Props {
-  products: ProductInterface[]
+  product: ProductInterface
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 </script>
 
 <template>
-  <RouterLink v-for="product in props.products" v-bind:key="product.id"
-    :to="{ name: 'products-show', params: { slug: product.slug } }">
-    <div>
+  <div>
+    <RouterLink :to="{ name: 'products-show', params: { slug: product.slug } }">
       <p>{{ product.name }}</p>
       <p>{{ product.price }}</p>
-    </div>
-  </RouterLink>
+    </RouterLink>
+  </div>
 </template>
 
 <style scoped lang="scss">
