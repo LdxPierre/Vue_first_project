@@ -13,6 +13,6 @@ import TheHeader from './components/TheHeader.vue';
     </div>
 </template>
 
-<style>
+<style lang="scss">
 @import './assets/css/styles.scss';
 </style>

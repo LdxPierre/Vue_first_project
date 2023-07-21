@@ -1,4 +1,5 @@
 <script setup lang="ts"></script>
+
 <template>
   <div class="container-xl p-1">
     <div class="d-flex align-items-center gap-2 mb-2">
@@ -11,4 +12,3 @@
     </div>
   </div>
 </template>
-<style scoped lang="scss"></style>

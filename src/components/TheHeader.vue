@@ -2,12 +2,9 @@
 import { reactive, ref } from 'vue';
 
 const state = reactive({ menuShow: false })
-
 const menuRef = ref<null | HTMLDivElement>(null)
-
 // memory leak
 let activeTO: ReturnType<typeof setTimeout>
-
 const showMenu = () => {
     state.menuShow = true
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -16,16 +13,13 @@ const showMenu = () => {
         menuRef.value?.classList.remove('active')
     }, 1000)
 }
-
 const closeMenu = (e: MouseEvent) => {
     const target = e.target as HTMLElement
     target.classList.contains('router-link-active') ? null : state.menuShow = false
 }
-
 const handleClickMenuToggler = () => {
     state.menuShow ? state.menuShow = false : showMenu()
 }
-
 </script>
 
 <template>
@@ -66,6 +60,8 @@ const handleClickMenuToggler = () => {
     </header>
 </template>
 
-<style scoped>
-@import '../assets/css/components/header.scss';
+<style scoped lang="scss">
+@import '../assets/css/variables';
+@import '../assets/css/media-queries';
+@import '../assets/css/components/header';
 </style>
