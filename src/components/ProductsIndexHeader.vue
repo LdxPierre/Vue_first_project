@@ -7,21 +7,21 @@ interface Emits {
   (e: 'update:modelValue', value: string): void
 }
 
-const props = defineProps<Props>()
-const emits = defineEmits<Emits>()
+defineProps<Props>()
+defineEmits<Emits>()
 </script>
 
 <template>
   <div class="top-bar">
     <h1>Produits</h1>
     <div class="button-group">
-      <button type="button" @click="emits('reset')" class="btn btn-outline-error">
+      <button type="button" @click="$emit('reset')" class="btn btn-outline-error">
         <span class="material-symbols-outlined">
           close
         </span>
       </button>
-      <input type="text" name="search" id="search" class="form-input" placeholder="Rechercher" :value="props.modelValue"
-        @keyup="emits('update:modelValue', ($event.target as HTMLInputElement)?.value)">
+      <input type="text" name="search" id="search" class="form-input" placeholder="Rechercher" :value="modelValue"
+        @keyup="$emit('update:modelValue', ($event.target as HTMLInputElement)?.value)">
       <RouterLink :to="{ name: 'products-create' }" class="btn btn-secondary">Nouveau</RouterLink>
     </div>
   </div>
