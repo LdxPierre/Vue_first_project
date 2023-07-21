@@ -7,7 +7,6 @@ const menuRef = ref<null | HTMLDivElement>(null)
 let activeTO: ReturnType<typeof setTimeout>
 const showMenu = () => {
     state.menuShow = true
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     clearTimeout(activeTO)
     activeTO = setTimeout(() => {
         menuRef.value?.classList.remove('active')
