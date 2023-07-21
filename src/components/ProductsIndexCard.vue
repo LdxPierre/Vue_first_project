@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import type { ProductInterface } from '@/types';
 
-const props = defineProps({ products: Object })
+interface Props {
+  products: ProductInterface[]
+}
+
+const props = defineProps<Props>()
 
 </script>
 
