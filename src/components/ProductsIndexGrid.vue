@@ -4,8 +4,6 @@ import type { ProductInterface } from '@/types';
 
 interface Props {
   products: ProductInterface[],
-  filteredProducts?: ProductInterface[],
-  search?: string,
 }
 
 const props = defineProps<Props>()
@@ -13,13 +11,8 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div v-if="(!props.search && props.products) || (props.search && props.filteredProducts?.length)" class="products-grid">
-    <template v-if="props.search && props.filteredProducts?.length">
-      <ProductsIndexCard :products="props.filteredProducts" />
-    </template>
-    <template v-else-if="!props.search && props.products">
-      <ProductsIndexCard :products="props.products" />
-    </template>
+  <div v-if="props.products.length" class="products-grid">
+    <ProductsIndexCard :products="props.products" />
   </div>
   <div v-else class="w-100 h-100 d-flex justify-content-center align-items-center">
     Aucun produit trouvé

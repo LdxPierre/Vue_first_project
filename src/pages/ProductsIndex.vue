@@ -17,6 +17,6 @@ watch(search, (newValue) => filteredProducts.value = products.value.filter(e => 
 <template>
   <div class="container-xl p-1">
     <ProductsIndexHeader @reset="reset" v-model="search" />
-    <ProductsIndexGrid :products="products" :search="search" :filtered-products="filteredProducts" />
+    <ProductsIndexGrid :products="search ? filteredProducts : products" :search="search" />
   </div>
 </template>
