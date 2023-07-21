@@ -6,13 +6,13 @@ interface Props {
   products: ProductInterface[],
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
 </script>
 
 <template>
-  <div v-if="props.products.length" class="products-grid">
-    <ProductsIndexCard :products="props.products" />
+  <div v-if="products.length" class="products-grid">
+    <ProductsIndexCard v-for="product in products" :product="product" />
   </div>
   <div v-else class="w-100 h-100 d-flex justify-content-center align-items-center">
     Aucun produit trouvé
