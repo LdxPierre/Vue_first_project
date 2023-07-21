@@ -28,5 +28,5 @@ const props = defineProps<Props>()
 
 <style scoped lang="scss">
 @import '../assets/css/media-queries';
-@import '../assets/css/components/productsIndexGrid.scss';
+@import '../assets/css/components/productsIndexGrid';
 </style>
