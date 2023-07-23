@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watch, watchEffect } from 'vue'
 import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
-import ProductsIndexGrid from '@/components/ProductsIndexGrid.vue';
+import Loading from '../components/Loading.vue';
 import type { ProductInterface } from '@/types';
 import { generateProducts } from '../seed/products'
+
+const ProductsIndexGrid = defineAsyncComponent({
+  loader: () => import('../components/ProductsIndexGrid.vue'),
+  loadingComponent: Loading
+})
 
 const products = ref<ProductInterface[]>([])
 const search = ref('')
@@ -15,7 +20,7 @@ watch(search, (newValue) => filteredProducts.value = products.value.filter(e => 
 </script>
 
 <template>
-  <div class="container-xl p-1">
+  <div class="container-xl">
     <ProductsIndexHeader @reset="reset" v-model="search" />
     <ProductsIndexGrid :products="search ? filteredProducts : products" :search="search" />
   </div>
