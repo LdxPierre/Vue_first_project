@@ -2,59 +2,81 @@
   &-100 {
     height: 100%;
   }
+
   &-75 {
     height: 75%;
   }
+
   &-50 {
     height: 50%;
   }
+
   &-25 {
     height: 25%;
   }
 }
+
 .vh {
   &-100 {
     height: 100vh;
   }
+
   &-75 {
     height: 75vh;
   }
+
   &-50 {
     height: 50vh;
   }
+
   &-25 {
     height: 25vh;
   }
 }
+
 .w {
   &-100 {
     width: 100%;
   }
+
   &-75 {
     width: 75%;
   }
+
   &-50 {
     width: 50%;
   }
+
   &-25 {
     width: 25%;
   }
 }
+
 .vw {
   &-100 {
     width: 100vw;
   }
+
   &-75 {
     width: 75vw;
   }
+
   &-50 {
     width: 50vw;
   }
+
   &-25 {
     width: 25vw;
   }
 }
+
 .min- {
+  &h- {
+    &100 {
+      min-height: 100%;
+    }
+  }
+
   &vh- {
     &100 {
       min-height: 100vh;
