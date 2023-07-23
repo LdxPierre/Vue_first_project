@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, ref, watch, watchEffect } from 'vue'
+import { computed, defineAsyncComponent, reactive, ref, watch, watchEffect } from 'vue'
 import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
 import Loading from '../components/Loading.vue';
 import type { ProductInterface } from '@/types';
@@ -10,18 +10,19 @@ const ProductsIndexGrid = defineAsyncComponent({
   loadingComponent: Loading
 })
 
-const products = ref<ProductInterface[]>([])
-const search = ref('')
-const filteredProducts = ref<ProductInterface[]>([])
-const reset = () => { search.value = '' }
+const state = reactive<{ products: ProductInterface[], search: string }>({
+  products: [],
+  search: '',
+})
+const filteredProducts = computed(() => state.products.filter(e => e.name.match(state.search)))
+const reset = () => { state.search = '' }
 
-watchEffect(() => products.value = generateProducts())
-watch(search, (newValue) => filteredProducts.value = products.value.filter(e => e.name.match(newValue)))
+watchEffect(() => state.products = generateProducts())
 </script>
 
 <template>
   <div class="container-xl">
-    <ProductsIndexHeader @reset="reset" v-model="search" />
-    <ProductsIndexGrid :products="search ? filteredProducts : products" :search="search" />
+    <ProductsIndexHeader @reset="reset" v-model="state.search" />
+    <ProductsIndexGrid :products="state.search ? filteredProducts : state.products" :search="state.search" />
   </div>
 </template>
