@@ -1,26 +1,33 @@
 .container {
   margin: auto;
   max-width: 800px;
+  padding: 4px;
+
   &-xxl {
     margin: auto;
     max-width: 1320px;
   }
+
   &-xl {
     margin: auto;
     max-width: 1140px;
   }
+
   &-lg {
     margin: auto;
     max-width: 960px;
   }
+
   &-md {
     margin: auto;
     max-width: 720px;
   }
+
   &-sm {
     margin: auto;
     max-width: 540px;
   }
+
   &-fluid {
     margin: auto;
     max-width: 100%;
