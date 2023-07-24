@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, reactive, ref, watch, watchEffect } from 'vue'
+import { computed, defineAsyncComponent, reactive, watchEffect } from 'vue'
 import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
 import Loading from '../components/Loading.vue';
 import type { ProductInterface } from '@/types';
