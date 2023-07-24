@@ -12,7 +12,7 @@ defineProps<Props>()
 
 <template>
   <div v-if="products.length" class="products-grid">
-    <ProductsIndexCard v-for="product in products" :product="product" />
+    <ProductsIndexCard v-for="product in products" v-bind:key="product.id" :product="product" />
   </div>
   <div v-else class="w-100 h-100 d-flex justify-content-center align-items-center">
     Aucun produit trouvé
