@@ -15,7 +15,7 @@ defineEmits<Emits>()
   <div class="top-bar">
     <h1>Produits</h1>
     <div class="button-group">
-      <button type="button" @click="$emit('reset')" class="btn btn-outline-error">
+      <button v-show="modelValue" type="button" @click="$emit('reset')" class="btn btn-outline-error">
         <span class="material-symbols-outlined">
           close
         </span>
