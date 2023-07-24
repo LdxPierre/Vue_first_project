@@ -23,6 +23,6 @@ watchEffect(() => state.products = generateProducts())
 <template>
   <div class="container-xl">
     <ProductsIndexHeader @reset="reset" v-model="state.search" />
-    <ProductsIndexGrid :products="state.search ? filteredProducts : state.products" :search="state.search" />
+    <ProductsIndexGrid :products="state.search ? filteredProducts : state.products" />
   </div>
 </template>
