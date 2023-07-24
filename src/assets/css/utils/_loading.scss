@@ -1,0 +1,54 @@
+.card-loading {
+  height: 150px;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+
+  background: linear-gradient(270deg, var(--dark), var(--primary));
+  background-size: 400% 400%;
+
+  -webkit-animation: shine 3s ease infinite;
+  -moz-animation: shine 3s ease infinite;
+  animation: shine 3s ease infinite;
+
+  @-webkit-keyframes shine {
+    0% {
+      background-position: 82% 0%;
+    }
+
+    50% {
+      background-position: 19% 100%;
+    }
+
+    100% {
+      background-position: 82% 0%;
+    }
+  }
+
+  @-moz-keyframes shine {
+    0% {
+      background-position: 82% 0%;
+    }
+
+    50% {
+      background-position: 19% 100%;
+    }
+
+    100% {
+      background-position: 82% 0%;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: 82% 0%;
+    }
+
+    50% {
+      background-position: 19% 100%;
+    }
+
+    100% {
+      background-position: 82% 0%;
+    }
+  }
+}
