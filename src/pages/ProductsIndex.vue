@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, reactive, watchEffect } from 'vue'
 import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
-import Loading from '../components/ProductsIndexGrid.vue';
+import Loading from '../components/ProductsIndexGridLoading.vue';
 import type { ProductInterface } from '@/types';
 import { generateProducts } from '../seed/products'
 
