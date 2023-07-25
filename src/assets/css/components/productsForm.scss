@@ -1,0 +1,60 @@
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @include md {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  label {
+    margin-bottom: 4px;
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 8px;
+    background-color: var(--light);
+    border: 1px solid var(--primary);
+    border-radius: 7px;
+
+    &.is-not-valid {
+      border-color: var(--error);
+    }
+  }
+
+  span.error {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--error);
+  }
+
+  button {
+    padding: 8px 16px;
+    background-color: var(--secondary);
+    border: 1px solid var(--secondary);
+    border-radius: 7px;
+    @include text-contrast($secondary);
+
+    &:hover {
+      cursor: pointer;
+      background-color: lighten($color: $secondary, $amount: 5);
+      border-color: lighten($color: $secondary, $amount: 5);
+      @include text-contrast($secondary);
+    }
+
+    &:active {
+      background-color: darken($color: $secondary, $amount: 10);
+      border-color: darken($color: $secondary, $amount: 10);
+      @include text-contrast(darken($color: $secondary, $amount: 10));
+    }
+
+    &.disabled {
+      cursor: default;
+      background-color: var(--dark);
+      border-color: var(--dark);
+      @include text-contrast($dark);
+    }
+  }
+}
