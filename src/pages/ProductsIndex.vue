@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, reactive, watchEffect } from 'vue'
+import { computed, defineAsyncComponent, reactive } from 'vue'
 import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
 import ProductsIndexFilters from '@/components/ProductsIndexFilters.vue';
 import Loading from '../components/ProductsIndexGridLoading.vue';
-import { generateProducts } from '../seed/products'
+import { getProducts } from '../helpers/http';
 import type { ProductInterface } from '@/types';
 import type { FiltersInterface } from '@/types/FiltersInterface';
 
@@ -15,18 +15,16 @@ const ProductsIndexGrid = defineAsyncComponent({
 })
 
 const state = reactive<State>({
-  products: [],
+  products: await getProducts(),
   filters: {
     search: '',
     sort: 'nameAsc',
     minPrice: 1,
-    maxPrice: 100
+    maxPrice: 5000
   }
 })
 const filteredProducts = computed(() => state.products.filter(e => e.name.match(state.filters.search) && e.price >= state.filters.minPrice && e.price <= state.filters.maxPrice))
 const reset = () => { state.filters.search = '' }
-
-watchEffect(() => state.products = generateProducts())
 </script>
 
 <template>
