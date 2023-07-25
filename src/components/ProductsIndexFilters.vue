@@ -36,12 +36,12 @@ const state = reactive<{ filters: boolean }>({ filters: true })
       </div>
       <div class="filter-item">
         <label for="price-min">Prix mini : {{ minPrice }}</label>
-        <input type="range" name="price-min" id="price-min" class="range-min" min="1" max="100" :value="minPrice"
+        <input type="range" name="price-min" id="price-min" class="range-min" min="1" max="5000" :value="minPrice"
           @input="$emit('update:minPrice', Number(($event.target as HTMLInputElement).value))">
       </div>
       <div class="filter-item">
         <label for="price-max">Prix max : {{ maxPrice }}</label>
-        <input type="range" name="price-max" id="price-max" class="range-max" min="1" max="100" :value="maxPrice"
+        <input type="range" name="price-max" id="price-max" class="range-max" min="1" max="5000" :value="maxPrice"
           @input="$emit('update:maxPrice', Number(($event.target as HTMLInputElement).value))">
       </div>
     </div>
