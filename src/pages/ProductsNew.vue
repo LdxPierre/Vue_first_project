@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import { defineAsyncComponent } from 'vue';
+
+const ProductsForm = defineAsyncComponent({
+  loader: () => import('../components/ProductsForm.vue'),
+  loadingComponent: LoadingSpinner
+})
+</script>
 
 <template>
   <div class="container-xl p-1">
@@ -10,5 +18,6 @@
       </RouterLink>
       <h1 class="text-primary">Nouveau produit</h1>
     </div>
+    <ProductsForm />
   </div>
 </template>
