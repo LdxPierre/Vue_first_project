@@ -20,14 +20,19 @@ const validationSchema = toTypedSchema(z.object({
   price: z.number({ invalid_type_error: 'Veuillez saisir un nombre', required_error: 'Veuillez saisir un prix' }).min(1, 'veuillez saisir un nombre'),
 }))
 
-const { errors, handleSubmit, isSubmitting } = useForm({ validationSchema, initialValues });
+const { errors, handleSubmit, isSubmitting, setFieldError } = useForm({ validationSchema, initialValues });
 const { value: nameValue } = useField('name')
 const { value: priceValue } = useField('price')
 
 const onSubmit = handleSubmit(async (values) => {
   try {
     const res = await createProduct(values)
-    return res._id ? router.push({ name: 'products-show', params: { slug: res.slug } }) : null;
+    if (res._id) {
+      return router.push({ name: 'products-show', params: { slug: res.slug } })
+    } else {
+      res.errors.name ? setFieldError('name', res.errors.name.message) : null;
+      res.errors.price ? setFieldError('price', res.errors.price.message) : null;
+    }
   } catch (e) { console.error(e) }
 })
 </script>
