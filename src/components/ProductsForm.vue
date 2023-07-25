@@ -2,6 +2,8 @@
 import { useField, useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from "zod";
+import { createProduct } from '@/helpers/http';
+import router from '@/router';
 
 const product = {
   name: undefined,
@@ -22,12 +24,12 @@ const { errors, handleSubmit, isSubmitting } = useForm({ validationSchema, initi
 const { value: nameValue } = useField('name')
 const { value: priceValue } = useField('price')
 
-const onSubmit = handleSubmit(values => new Promise<void>((resolve) => {
-  setTimeout(() => {
-    resolve();
-    console.log(values);
-  }, 2000)
-}))
+const onSubmit = handleSubmit(async (values) => {
+  try {
+    const res = await createProduct(values)
+    return res._id ? router.push({ name: 'products-show', params: { slug: res.slug } }) : null;
+  } catch (e) { console.error(e) }
+})
 </script>
 
 <template>
