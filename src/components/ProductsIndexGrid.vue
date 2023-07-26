@@ -1,13 +1,22 @@
 <script setup lang="ts">
+import { getProducts } from '@/helpers/http';
 import ProductsIndexCard from './ProductsIndexCard.vue';
 import type { ProductInterface } from '@/types';
 
-interface Props {
+defineProps<{
   products: ProductInterface[],
+}>()
+const emits = defineEmits<{
+  (e: 'setProducts', products: ProductInterface[]): void,
+  (e: 'setError', value: string): void
+}>()
+
+try {
+  const response = await getProducts()
+  emits('setProducts', response)
+} catch (e) {
+  emits('setError', 'Erreur lors du chargement initial des produits');
 }
-
-defineProps<Props>()
-
 </script>
 
 <template>
