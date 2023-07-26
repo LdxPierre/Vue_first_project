@@ -2,7 +2,7 @@
 import { useField, useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from "zod";
-import { createProduct } from '@/helpers/http';
+import { createProduct, getProduct } from '@/helpers/http';
 import router from '@/router';
 
 const product = {
@@ -15,8 +15,15 @@ const initialValues = {
   price: product.price
 }
 
+const nameIsValid = async (name: string) => {
+  return (await getProduct(name).then(result => result)) ? false : true
+}
+
 const validationSchema = toTypedSchema(z.object({
-  name: z.string({ invalid_type_error: 'Le doit doit être une chaîne de caractères', required_error: 'Veuillez saisir un nom' }).min(3, 'Le nom doit comporter au moins 3 caractères').max(100, 'Le nom ne doit pas dépasser 100 caractères'),
+  name: z.string({ invalid_type_error: 'Le doit doit être une chaîne de caractères', required_error: 'Veuillez saisir un nom' })
+    .min(3, 'Le nom doit comporter au moins 3 caractères')
+    .max(100, 'Le nom ne doit pas dépasser 100 caractères')
+    .refine(async (name) => await nameIsValid(name), 'Un produit du même nom existe déjà'),
   price: z.number({ invalid_type_error: 'Veuillez saisir un nombre', required_error: 'Veuillez saisir un prix' }).min(1, 'veuillez saisir un nombre'),
 }))
 
