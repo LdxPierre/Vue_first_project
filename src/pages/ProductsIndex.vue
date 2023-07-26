@@ -4,8 +4,7 @@ import ProductsIndexHeader from '@/components/ProductsIndexHeader.vue';
 import ProductsIndexFilters from '@/components/ProductsIndexFilters.vue';
 import ProductsIndexGrid from '@/components/ProductsIndexGrid.vue';
 import ProductsIndexGridLoading from '@/components/ProductsIndexGridLoading.vue';
-import type { ProductInterface } from '@/types';
-import type { FiltersInterface } from '@/types/FiltersInterface';
+import type { ProductInterface, FiltersInterface } from '@/types';
 
 interface State { products: ProductInterface[], filters: FiltersInterface, error: string }
 
@@ -40,6 +39,6 @@ const setError = (value: string) => { state.error = value }
         </template>
       </Suspense>
     </template>
-    <p v-if="state.error">{{ state.error }}</p>
+    <p v-else>{{ state.error }}</p>
   </div>
 </template>
