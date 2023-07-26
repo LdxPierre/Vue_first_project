@@ -5,12 +5,12 @@ export const getProducts = async (): Promise<ProductInterface[]> => {
   return await response.json()
 }
 
-export const getProduct = async (id: number | string): Promise<ProductInterface> => {
-  const response: Response = await fetch(`http://localhost:8080/api/products/${id}`)
+export const getProduct = async (name: string): Promise<ProductInterface> => {
+  const response: Response = await fetch(`http://localhost:8080/api/products/${name}`)
   return await response.json()
 }
 
-export const createProduct = async (data: object): Promise<void> => {
+export const createProduct = async (data: object): Promise<ProductInterface> => {
   const body = JSON.stringify(data)
   const response: Response = await fetch(`http://localhost:8080/api/products`, {
     method: 'POST',
