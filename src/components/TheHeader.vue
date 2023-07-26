@@ -2,50 +2,55 @@
 import { reactive, ref } from 'vue';
 
 const state = reactive({ menuShow: false })
-const menuRef = ref<null | HTMLDivElement>(null)
-// memory leak
-let activeTO: ReturnType<typeof setTimeout>
-const showMenu = () => {
-    state.menuShow = true
-    clearTimeout(activeTO)
-    activeTO = setTimeout(() => {
-        menuRef.value?.classList.remove('active')
-    }, 1000)
-}
-const closeMenu = (e: MouseEvent) => {
+const menuRef = ref<null | HTMLElement>()
+const toggleMenu = (e: Event) => {
     const target = e.target as HTMLElement
-    target.classList.contains('router-link-active') ? null : state.menuShow = false
-}
-const handleClickMenuToggler = () => {
-    state.menuShow ? state.menuShow = false : showMenu()
+    e.stopPropagation();
+    target != menuRef.value
+        ? state.menuShow = !state.menuShow
+        : null
 }
 </script>
 
 <template>
     <header>
         <nav class="container-xl">
-            <button type="button" class="toggler toggler-menu" @click="handleClickMenuToggler">
+            <button type="button" class="toggler toggler-menu" @click="toggleMenu">
                 <span class="material-symbols-outlined">menu</span>
                 Menu
             </button>
             <router-link :to="{ name: 'home-page' }" class="brand" active-class="">Projet Vue</router-link>
-            <div class="menu" ref="menuRef" :class="{ 'show active': state.menuShow }">
-                <div class="menu-header">
-                    <router-link :to="{ name: 'home-page' }" class="brand" active-class="" @click="closeMenu">
-                        Projet Vue
-                    </router-link>
-                    <button type="button" class="toggler" @click="closeMenu">
-                        <span class="material-symbols-outlined">
-                            close
-                        </span>
-                    </button>
-                </div>
-                <ul class="link-list">
+            <div v-show="state.menuShow" class="calc" @click="toggleMenu">
+                <Transition>
+                    <div class="menu" v-show="state.menuShow" ref="menuRef">
+                        <div class="menu-header">
+                            <router-link :to="{ name: 'home-page' }" class="brand" active-class="">
+                                Projet Vue
+                            </router-link>
+                            <button type="button" class="toggler" @click="toggleMenu">
+                                <span class="material-symbols-outlined">
+                                    close
+                                </span>
+                            </button>
+                        </div>
+                        <ul class="link-list">
+                            <li>
+                                <router-link :to="{ name: 'products-index' }"> Produits </router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{ name: 'brands-index' }">Marques</router-link>
+                            </li>
+                        </ul>
+                    </div>
+                </Transition>
+            </div>
+            <div class="menu-medium">
+                <ul>
                     <li>
-                        <router-link :to="{ name: 'products-index' }" @click="closeMenu"> Produits </router-link>
+                        <router-link :to="{ name: 'products-index' }"> Produits </router-link>
                     </li>
                     <li>
-                        <router-link :to="{ name: 'brands-index' }" @click="closeMenu">Marques</router-link>
+                        <router-link :to="{ name: 'brands-index' }">Marques</router-link>
                     </li>
                 </ul>
             </div>
