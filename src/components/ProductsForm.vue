@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
+import router from '@/router';
+import { createProduct, getProduct } from '@/helpers/http';
 import { useField, useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from "zod";
-import { createProduct, getProduct } from '@/helpers/http';
-import router from '@/router';
+import { useFetchProducts } from '@/composables';
+import LoadingSpinner from './LoadingSpinner.vue';
+import type { ProductInterface } from '@/types';
+
+const { data, error, isLoading, fetchProducts } = useFetchProducts()
+const { params } = useRoute()
 
 const product = {
-  name: undefined,
-  price: undefined
+  name: (data.value as ProductInterface).name,
+  price: (data.value as ProductInterface).price
 }
 
 const initialValues = {
@@ -42,29 +50,35 @@ const onSubmit = handleSubmit(async (values) => {
     }
   } catch (e) { console.error(e) }
 })
+
+watchEffect(() => fetchProducts({ slug: (params.slug as string) }))
 </script>
 
 <template>
-  <form>
-    <div>
-      <label for="name">Nom du produit</label>
-      <input type="text" name="name" id="name" v-model="nameValue" :class="{ 'is-not-valid': errors.name }"
-        autocomplete="off" autofocus>
-      <span class="error" v-if="errors.name">{{ errors.name }}</span>
-    </div>
-    <div>
-      <label for="price">Prix</label>
-      <input type="number" name="price" id="price" v-model="priceValue" :class="{ 'is-not-valid': errors.price }"
-        autocomplete="off">
-      <span class="error" v-if="errors.price">{{ errors.price }}</span>
-    </div>
-    <div>
-      <button type="submit" @click="onSubmit" :class="{ 'disabled': isSubmitting }" :disabled="isSubmitting">{{
-        isSubmitting ?
-        'Envoi ...' : initialValues.name ? 'Modifier' : 'Ajouter'
-      }}</button>
-    </div>
-  </form>
+  <template v-if="!error">
+    <LoadingSpinner v-if="isLoading"></LoadingSpinner>
+    <form v-else>
+      <div>
+        <label for="name">Nom du produit</label>
+        <input type="text" name="name" id="name" v-model="nameValue" :class="{ 'is-not-valid': errors.name }"
+          autocomplete="off" autofocus>
+        <span class="error" v-if="errors.name">{{ errors.name }}</span>
+      </div>
+      <div>
+        <label for="price">Prix</label>
+        <input type="number" name="price" id="price" v-model="priceValue" :class="{ 'is-not-valid': errors.price }"
+          autocomplete="off">
+        <span class="error" v-if="errors.price">{{ errors.price }}</span>
+      </div>
+      <div>
+        <button type="submit" @click="onSubmit" :class="{ 'disabled': isSubmitting }" :disabled="isSubmitting">{{
+          isSubmitting ?
+          'Envoi ...' : initialValues.name ? 'Modifier' : 'Ajouter'
+        }}</button>
+      </div>
+    </form>
+  </template>
+  <p v-else>{{ error }}</p>
 </template>
 
 <style scoped lang="scss">
