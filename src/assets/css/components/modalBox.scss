@@ -1,0 +1,142 @@
+.calc {
+  position: absolute;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0000007a;
+
+  &.calc-enter-active,
+  &.calc-leave-active {
+    transition: background-color 0.3s;
+  }
+
+  &.calc-enter-from,
+  &.calc-leave-to {
+    background-color: transparent;
+  }
+
+  &.calc-enter-to,
+  &.calc-leave-from {
+    background-color: #0000007a;
+  }
+}
+
+.modal {
+  position: absolute;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: fit-content;
+  width: fit-content;
+  min-height: 100px;
+  min-width: 300px;
+  max-width: 100vw;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &.modal-enter-active,
+  &.modal-leave-active {
+    transition: all 0.1s;
+  }
+
+  &.modal-enter-from,
+  &.modal-leave-to {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+}
+
+.header {
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body {
+  padding: 8px;
+  flex: 1 1 auto;
+}
+
+.footer {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @include mq.md {
+    justify-content: end;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.closeToggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--dark);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--light);
+  }
+
+  &:active {
+    color: var(--error);
+  }
+}
+
+.cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  background-color: transparent;
+  border: 1px solid var(--dark);
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--light);
+    @include text-contrast($light);
+  }
+
+  &:active {
+    background-color: var(--error);
+    border-color: transparent;
+    @include text-contrast($error);
+  }
+}
+
+.confirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  background-color: var(--success);
+  @include text-contrast($success);
+  border: 1px solid transparent;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: lighten($color: $success, $amount: 5);
+    @include text-contrast(lighten($color: $success, $amount: 5));
+  }
+
+  &:active {
+    background-color: darken($color: $success, $amount: 10);
+    @include text-contrast(darken($color: $success, $amount: 10));
+  }
+}
