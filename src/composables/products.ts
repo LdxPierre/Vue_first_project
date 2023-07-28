@@ -1,59 +1,43 @@
-import { ref } from 'vue'
-import type { ProductInterface } from '@/types'
+export const useProducts = () => {
+  const API_URL = 'http://localhost:8080/api/products'
 
-type Method =
-  | 'GET'
-  | 'POST'
-  | 'DELETE'
-  | 'PATCH'
-  | 'PUT'
-  | 'get'
-  | 'post'
-  | 'delete'
-  | 'patch'
-  | 'put'
-
-interface FetchOptions {
-  method?: Method
-  id?: string
-  slug?: string
-  newData?: {}
-}
-
-export const useFetchProducts = () => {
-  const data = ref<ProductInterface[] | ProductInterface>([])
-  const error = ref(null)
-  const isLoading = ref(false)
-
-  const fetchProducts = async ({ method = 'GET', id, slug, newData }: FetchOptions) => {
-    const methodUpper = method?.toUpperCase()
-    const pathSlug = methodUpper == 'GET' && slug ? slug : ''
-    const pathId = methodUpper == 'DELETE' && id ? id : ''
-
-    try {
-      isLoading.value = true
-      const response: Response = await fetch(
-        `http://localhost:8080/api/products/${pathSlug}${pathId}`,
-        {
-          method: methodUpper,
-          body: JSON.stringify(newData) ?? null,
-          headers: {
-            'Content-Type': 'Application/Json'
-          }
-        }
-      )
-      if (response.ok) {
-        data.value = await response.json()
-      } else {
-        console.log(await response.json())
-        throw new Error(await response.json())
-      }
-    } catch (e: any) {
-      error.value = e
-    } finally {
-      isLoading.value = false
-    }
+  const getProducts = () => {
+    return fetch(API_URL).then((result) => result.json())
   }
 
-  return { data, error, isLoading, fetchProducts }
+  const getProduct = async (slug: string) => {
+    return await (await fetch(`${API_URL}/${slug}`)).json()
+  }
+
+  const postProduct = async (data: {}) => {
+    return fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'Application/json'
+      }
+    }).then((result) => result.json())
+  }
+
+  const patchProduct = async (id: string, data: {}) => {
+    return fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data)
+    }).then((result) => result.json())
+  }
+
+  const putProduct = async (id: string, data: {}) => {
+    return fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    }).then((result) => result.json())
+  }
+
+  const deleteProduct = async (id: string) => {
+    return fetch(`${API_URL}/${id}`, {
+      method: 'DELETE'
+    }).then((result) => result.json())
+  }
+
+  return { getProducts, getProduct, postProduct, patchProduct, putProduct, deleteProduct }
 }
