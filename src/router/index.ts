@@ -26,6 +26,11 @@ const router = createRouter({
           path: ':slug',
           name: 'products-show',
           component: () => import('@/pages/ProductsShow.vue')
+        },
+        {
+          path: ':slug/edit',
+          name: 'products-edit',
+          component: () => import('@/pages/ProductsEdit.vue')
         }
       ]
     },
