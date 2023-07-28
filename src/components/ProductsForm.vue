@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue';
+import { onBeforeMount, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import router from '@/router';
-import { createProduct } from '@/helpers/http';
 import { useField, useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from "zod";
-import { useFetchProducts } from '@/composables';
+import { useProducts } from '@/composables';
 import LoadingSpinner from './LoadingSpinner.vue';
 import type { ProductInterface } from '@/types';
 
-const { data, error, isLoading, fetchProducts } = useFetchProducts()
-const { params } = useRoute()
-
-const product = {
-  name: (data.value as ProductInterface).name,
-  price: (data.value as ProductInterface).price
-}
-
-const initialValues = {
-  name: product.name,
-  price: product.price
+interface State {
+  product: ProductInterface | null
+  errors: string[]
+  isLoading: boolean
 }
 
 const validationSchema = toTypedSchema(z.object({
@@ -30,13 +22,20 @@ const validationSchema = toTypedSchema(z.object({
   price: z.number({ invalid_type_error: 'Veuillez saisir un nombre', required_error: 'Veuillez saisir un prix' }).min(1, 'veuillez saisir un nombre'),
 }))
 
-const { errors, handleSubmit, isSubmitting, setFieldError } = useForm({ validationSchema, initialValues });
+const state = reactive<State>({
+  product: null,
+  errors: [],
+  isLoading: false
+})
+const { getProduct, postProduct, patchProduct } = useProducts()
+const { params } = useRoute()
+const { errors, handleSubmit, isSubmitting, setFieldError } = useForm({ validationSchema });
 const { value: nameValue } = useField('name')
 const { value: priceValue } = useField('price')
 
 const onSubmit = handleSubmit(async (values) => {
   try {
-    const res = await createProduct(values)
+    const res = state.product ? await patchProduct(state.product._id, values) : await postProduct(values)
     if (res._id) {
       return router.push({ name: 'products-show', params: { slug: res.slug } })
     } else {
@@ -46,12 +45,32 @@ const onSubmit = handleSubmit(async (values) => {
   } catch (e) { console.error(e) }
 })
 
-watchEffect(() => fetchProducts({ slug: (params.slug as string) }))
+onBeforeMount(async () => {
+  if (params.slug) {
+    try {
+      state.isLoading = true
+      const res = await getProduct(params.slug.toString())
+      if (res._id) {
+        state.product = res
+        nameValue.value = state.product?.name
+        priceValue.value = state.product?.price
+      } else if (res.message) {
+        state.errors.push(res.message)
+      } else {
+        console.log(res)
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      state.isLoading = false
+    }
+  }
+})
 </script>
 
 <template>
-  <template v-if="!error">
-    <LoadingSpinner v-if="isLoading"></LoadingSpinner>
+  <template v-if="!state.errors.length">
+    <LoadingSpinner v-if="state.isLoading"></LoadingSpinner>
     <form v-else>
       <div>
         <label for="name">Nom du produit</label>
@@ -68,12 +87,14 @@ watchEffect(() => fetchProducts({ slug: (params.slug as string) }))
       <div>
         <button type="submit" @click="onSubmit" :class="{ 'disabled': isSubmitting }" :disabled="isSubmitting">{{
           isSubmitting ?
-          'Envoi ...' : initialValues.name ? 'Modifier' : 'Ajouter'
+          'Envoi ...' : state.product?._id ? 'Modifier' : 'Ajouter'
         }}</button>
       </div>
     </form>
   </template>
-  <p v-else>{{ error }}</p>
+  <template v-else>
+    <p v-for="error in state.errors" :key="error">{{ error }}</p>
+  </template>
 </template>
 
 <style scoped lang="scss">
